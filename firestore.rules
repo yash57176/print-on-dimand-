@@ -1,0 +1,117 @@
+rules_version = '2';
+
+// Zesto Print — Firestore Security Rules (Customer App scope)
+// Admin access is granted via a custom auth claim (request.auth.token.admin == true),
+// set on the admin's account through the Firebase Admin SDK — this app's Firestore
+// schema intentionally has no separate "admins" collection.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.admin == true;
+    }
+
+    // ---------------------------------------------------------------
+    // users — customer profile documents
+    // ---------------------------------------------------------------
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ---------------------------------------------------------------
+    // products / categories — public read, admin-only write
+    // ---------------------------------------------------------------
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // ---------------------------------------------------------------
+    // orders — customer creates/reads their own, only admin changes status
+    // ---------------------------------------------------------------
+    match /orders/{orderId} {
+      allow read: if isAdmin() ||
+        (isSignedIn() && resource.data.userId == request.auth.uid);
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow update: if isAdmin() ||
+        (isSignedIn() && resource.data.userId == request.auth.uid &&
+          request.resource.data.status == resource.data.status); // customers can't change status
+      allow delete: if isAdmin();
+    }
+
+    // ---------------------------------------------------------------
+    // order_items — line items tied to an order
+    // ---------------------------------------------------------------
+    match /order_items/{itemId} {
+      allow read: if isAdmin() ||
+        (isSignedIn() && resource.data.userId == request.auth.uid);
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isAdmin();
+    }
+
+    // ---------------------------------------------------------------
+    // design_uploads — metadata for customer-uploaded print files
+    // ---------------------------------------------------------------
+    match /design_uploads/{designId} {
+      allow read: if isAdmin() ||
+        (isSignedIn() && resource.data.userId == request.auth.uid);
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isAdmin() ||
+        (isSignedIn() && resource.data.userId == request.auth.uid);
+    }
+
+    // ---------------------------------------------------------------
+    // addresses — customer-owned
+    // ---------------------------------------------------------------
+    match /addresses/{addressId} {
+      allow read, update, delete: if isAdmin() ||
+        (isSignedIn() && resource.data.userId == request.auth.uid);
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+    }
+
+    // ---------------------------------------------------------------
+    // notifications — user reads their own + broadcast (userId == "all")
+    // ---------------------------------------------------------------
+    match /notifications/{notifId} {
+      allow read: if isAdmin() ||
+        (isSignedIn() && (resource.data.userId == request.auth.uid || resource.data.userId == "all"));
+      allow write: if isAdmin();
+    }
+
+    // ---------------------------------------------------------------
+    // reviews — signed-in users create for their own orders, public read
+    // ---------------------------------------------------------------
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isAdmin() ||
+        (isSignedIn() && resource.data.userId == request.auth.uid);
+    }
+
+    // ---------------------------------------------------------------
+    // settings — single doc, public read (shipping fee, tax, contact info),
+    // admin-only write
+    // ---------------------------------------------------------------
+    match /settings/{settingId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}
