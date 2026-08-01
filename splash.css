@@ -1,0 +1,104 @@
+/* customer-app/css/splash.css
+   Splash screen: the CMYK marks resolve into the wordmark, then a
+   loader plays while auth state resolves and we route the customer. */
+
+.zp-app--splash {
+  background: var(--zp-paper);
+}
+
+.zp-splash {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--zp-space-6);
+  text-align: center;
+  padding: var(--zp-space-6);
+}
+
+.zp-splash__mark {
+  position: relative;
+  width: 72px;
+  height: 72px;
+}
+
+.zp-splash__mark-dot {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  mix-blend-mode: multiply;
+  animation: zp-splash-converge 900ms var(--zp-ease) both;
+}
+.zp-splash__mark-dot--c {
+  background: var(--zp-cyan);
+  top: 0; left: 0;
+  --zp-from-x: -60px; --zp-from-y: -60px;
+}
+.zp-splash__mark-dot--m {
+  background: var(--zp-magenta);
+  top: 0; right: 0;
+  --zp-from-x: 60px; --zp-from-y: -60px;
+}
+.zp-splash__mark-dot--y {
+  background: var(--zp-yellow);
+  bottom: 0; left: 0;
+  --zp-from-x: -60px; --zp-from-y: 60px;
+}
+.zp-splash__mark-dot--k {
+  background: var(--zp-key);
+  bottom: 0; right: 0;
+  --zp-from-x: 60px; --zp-from-y: 60px;
+}
+
+@keyframes zp-splash-converge {
+  0% {
+    transform: translate(var(--zp-from-x), var(--zp-from-y)) scale(0.6);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+}
+
+.zp-splash__title {
+  font-size: var(--zp-fs-3xl);
+  animation: zp-splash-fade-up 500ms 700ms var(--zp-ease) both;
+}
+
+.zp-splash__tagline {
+  color: var(--zp-text-muted);
+  font-size: var(--zp-fs-xs);
+  letter-spacing: 0.12em;
+  animation: zp-splash-fade-up 500ms 850ms var(--zp-ease) both;
+}
+
+@keyframes zp-splash-fade-up {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.zp-splash__loader {
+  position: absolute;
+  bottom: var(--zp-space-10);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+.zp-splash__loader .zp-loader__dot {
+  width: 8px;
+  height: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zp-splash__mark-dot,
+  .zp-splash__title,
+  .zp-splash__tagline {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

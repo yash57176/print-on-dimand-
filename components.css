@@ -1,0 +1,383 @@
+/* customer-app/css/components.css
+   Zesto Print — Reusable component styles shared by every page.
+------------------------------------------------------------------ */
+
+@import url("./variables.css");
+
+/* =========================================================
+   Buttons
+========================================================= */
+.zp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--zp-space-2);
+  border: none;
+  border-radius: var(--zp-radius-pill);
+  padding: 14px var(--zp-space-6);
+  font-size: var(--zp-fs-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform var(--zp-duration-fast) var(--zp-ease),
+    box-shadow var(--zp-duration-fast) var(--zp-ease),
+    background-color var(--zp-duration-fast) var(--zp-ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.zp-btn:active { transform: scale(0.97); }
+.zp-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+.zp-btn--primary {
+  background: var(--zp-primary);
+  color: var(--zp-text-on-primary);
+  box-shadow: var(--zp-shadow-sm);
+}
+.zp-btn--primary:hover:not(:disabled) { background: var(--zp-primary-hover); }
+
+.zp-btn--outline {
+  background: transparent;
+  color: var(--zp-key);
+  border: 1.5px solid var(--zp-border);
+}
+.zp-btn--outline:hover:not(:disabled) { border-color: var(--zp-key); }
+
+.zp-btn--ghost {
+  background: transparent;
+  color: var(--zp-primary);
+  padding: 10px var(--zp-space-4);
+}
+
+.zp-btn--block { width: 100%; }
+
+.zp-btn--icon {
+  padding: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--zp-surface);
+  box-shadow: var(--zp-shadow-sm);
+  color: var(--zp-key);
+}
+
+/* =========================================================
+   Inputs
+========================================================= */
+.zp-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zp-space-2);
+}
+
+.zp-label {
+  font-size: var(--zp-fs-sm);
+  font-weight: 600;
+  color: var(--zp-key-soft);
+}
+
+.zp-input,
+.zp-select,
+.zp-textarea {
+  width: 100%;
+  background: var(--zp-paper-dim);
+  border: 1.5px solid transparent;
+  border-radius: var(--zp-radius-md);
+  padding: 14px var(--zp-space-4);
+  font-size: var(--zp-fs-base);
+  color: var(--zp-text);
+  transition: border-color var(--zp-duration-fast) var(--zp-ease);
+}
+
+.zp-input::placeholder,
+.zp-textarea::placeholder {
+  color: var(--zp-text-muted);
+}
+
+.zp-input:focus,
+.zp-select:focus,
+.zp-textarea:focus {
+  outline: none;
+  border-color: var(--zp-cyan);
+  background: var(--zp-surface);
+}
+
+.zp-input--error {
+  border-color: var(--zp-danger);
+}
+
+.zp-field__error {
+  font-size: var(--zp-fs-xs);
+  color: var(--zp-danger);
+}
+
+.zp-input-group {
+  position: relative;
+}
+.zp-input-group .zp-input {
+  padding-right: 46px;
+}
+.zp-input-group__action {
+  position: absolute;
+  right: var(--zp-space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--zp-text-muted);
+  cursor: pointer;
+  padding: var(--zp-space-1);
+}
+
+/* =========================================================
+   Cards — with the "registration mark" signature on hover/focus.
+   Print registration marks (crosshair + circle) are what a printer
+   uses to align color plates; here they appear at a card's corner
+   to say "this is the thing you're aligning your attention on."
+========================================================= */
+.zp-card {
+  position: relative;
+  background: var(--zp-surface);
+  border-radius: var(--zp-radius-md);
+  padding: var(--zp-space-4);
+  box-shadow: var(--zp-shadow-sm);
+  border: 1px solid var(--zp-border);
+  transition: box-shadow var(--zp-duration-base) var(--zp-ease),
+    transform var(--zp-duration-base) var(--zp-ease);
+}
+
+.zp-card--interactive {
+  cursor: pointer;
+}
+.zp-card--interactive:hover,
+.zp-card--interactive:focus-visible {
+  box-shadow: var(--zp-shadow-md);
+  transform: translateY(-2px);
+}
+
+.zp-reg-mark {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 16px;
+  height: 16px;
+  opacity: 0;
+  transition: opacity var(--zp-duration-base) var(--zp-ease);
+  pointer-events: none;
+}
+.zp-card--interactive:hover .zp-reg-mark,
+.zp-card--interactive:focus-visible .zp-reg-mark {
+  opacity: 0.55;
+}
+.zp-reg-mark::before,
+.zp-reg-mark::after {
+  content: "";
+  position: absolute;
+  background: var(--zp-key);
+}
+.zp-reg-mark::before {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transform: translateY(-50%);
+}
+.zp-reg-mark::after {
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+.zp-reg-mark-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--zp-key);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* =========================================================
+   Badges / chips
+========================================================= */
+.zp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px var(--zp-space-3);
+  border-radius: var(--zp-radius-pill);
+  font-size: var(--zp-fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.zp-badge--cyan { background: rgba(0, 174, 239, 0.12); color: var(--zp-cyan-dark); }
+.zp-badge--magenta { background: rgba(236, 12, 140, 0.1); color: var(--zp-magenta-dark); }
+.zp-badge--yellow { background: rgba(255, 212, 0, 0.18); color: #7A5F00; }
+.zp-badge--success { background: rgba(31, 169, 113, 0.12); color: var(--zp-success); }
+.zp-badge--danger { background: rgba(217, 54, 54, 0.1); color: var(--zp-danger); }
+
+/* =========================================================
+   Header
+========================================================= */
+.zp-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  height: var(--zp-header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--zp-space-4);
+  background: var(--zp-paper);
+  border-bottom: 1px solid var(--zp-border);
+}
+.zp-header__title {
+  font-family: var(--zp-font-display);
+  font-size: var(--zp-fs-md);
+}
+
+/* =========================================================
+   Bottom navigation
+========================================================= */
+.zp-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: var(--zp-max-width);
+  margin: 0 auto;
+  height: calc(var(--zp-bottom-nav-height) + var(--zp-safe-bottom));
+  padding-bottom: var(--zp-safe-bottom);
+  background: var(--zp-surface);
+  border-top: 1px solid var(--zp-border);
+  display: flex;
+  z-index: 30;
+}
+.zp-bottom-nav__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  color: var(--zp-text-muted);
+  font-size: var(--zp-fs-xs);
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.zp-bottom-nav__item--active {
+  color: var(--zp-primary);
+}
+.zp-bottom-nav__icon {
+  width: 22px;
+  height: 22px;
+}
+
+/* =========================================================
+   Toast notifications
+========================================================= */
+.zp-toast-container {
+  position: fixed;
+  top: var(--zp-space-4);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: var(--zp-space-2);
+  width: calc(100% - var(--zp-space-8));
+  max-width: 420px;
+  align-items: center;
+}
+.zp-toast {
+  display: flex;
+  align-items: center;
+  gap: var(--zp-space-2);
+  width: 100%;
+  background: var(--zp-key);
+  color: #fff;
+  padding: var(--zp-space-3) var(--zp-space-4);
+  border-radius: var(--zp-radius-md);
+  box-shadow: var(--zp-shadow-lg);
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity var(--zp-duration-base) var(--zp-ease),
+    transform var(--zp-duration-base) var(--zp-ease);
+}
+.zp-toast--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.zp-toast__icon { font-weight: 700; }
+.zp-toast__text { flex: 1; font-size: var(--zp-fs-sm); }
+.zp-toast__close {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: var(--zp-fs-md);
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px;
+}
+.zp-toast--success { background: var(--zp-success); }
+.zp-toast--error { background: var(--zp-danger); }
+.zp-toast--warning { background: #966400; }
+.zp-toast--info { background: var(--zp-key); }
+
+/* =========================================================
+   CMYK dot loader — signature loading state
+========================================================= */
+.zp-loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(250, 248, 243, 0.85);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--zp-duration-base) var(--zp-ease);
+}
+.zp-loader-overlay--visible {
+  opacity: 1;
+  pointer-events: all;
+}
+.zp-loader {
+  display: flex;
+  gap: 10px;
+}
+.zp-loader__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  animation: zp-loader-bounce 1.1s var(--zp-ease) infinite;
+  mix-blend-mode: multiply;
+}
+.zp-loader__dot--c { background: var(--zp-cyan); animation-delay: 0ms; }
+.zp-loader__dot--m { background: var(--zp-magenta); animation-delay: 110ms; }
+.zp-loader__dot--y { background: var(--zp-yellow); animation-delay: 220ms; }
+.zp-loader__dot--k { background: var(--zp-key); animation-delay: 330ms; }
+
+@keyframes zp-loader-bounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-14px); }
+}
+
+/* =========================================================
+   Empty states
+========================================================= */
+.zp-empty {
+  text-align: center;
+  padding: var(--zp-space-12) var(--zp-space-4);
+  color: var(--zp-text-muted);
+}
+.zp-empty__title {
+  font-family: var(--zp-font-display);
+  color: var(--zp-key);
+  margin-bottom: var(--zp-space-2);
+}

@@ -1,0 +1,86 @@
+/* customer-app/css/variables.css
+   Zesto Print — Design Tokens
+   Theme concept: the four-color printing process (CMYK) rendered as a
+   clean, modern storefront. Paper-white surfaces, ink-black type, and the
+   process colors used deliberately (not as a rainbow) — Magenta carries
+   primary actions, Cyan carries information/links, Yellow is a rare,
+   precise highlight, Key (black) is structure and text.
+------------------------------------------------------------------ */
+
+:root {
+  /* ---- Brand / CMYK process colors ---- */
+  --zp-cyan: #00AEEF;
+  --zp-cyan-dark: #0089C2;
+  --zp-magenta: #EC0C8C;
+  --zp-magenta-dark: #C40A73;
+  --zp-yellow: #FFD400;
+  --zp-key: #15151A;      /* "K" — ink black, used for text/structure */
+  --zp-key-soft: #34343D;
+
+  /* ---- Surfaces ---- */
+  --zp-paper: #FAF8F3;        /* uncoated paper white — app background */
+  --zp-paper-dim: #F1EEE6;    /* recessed surfaces, input backgrounds */
+  --zp-surface: #FFFFFF;      /* cards, sheets */
+  --zp-border: #E4E0D4;
+
+  /* ---- Semantic ---- */
+  --zp-primary: var(--zp-magenta);
+  --zp-primary-hover: var(--zp-magenta-dark);
+  --zp-info: var(--zp-cyan);
+  --zp-success: #1FA971;
+  --zp-warning: #C98A00;
+  --zp-danger: #D93636;
+
+  --zp-text: var(--zp-key);
+  --zp-text-muted: #6B6A66;
+  --zp-text-on-primary: #FFFFFF;
+
+  /* ---- Typography ---- */
+  --zp-font-display: "Anton", "Arial Narrow", sans-serif;
+  --zp-font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --zp-font-mono: "JetBrains Mono", "Courier New", monospace;
+
+  --zp-fs-xs: 0.75rem;
+  --zp-fs-sm: 0.875rem;
+  --zp-fs-base: 1rem;
+  --zp-fs-md: 1.125rem;
+  --zp-fs-lg: 1.375rem;
+  --zp-fs-xl: 1.75rem;
+  --zp-fs-2xl: 2.25rem;
+  --zp-fs-3xl: 3rem;
+
+  /* ---- Spacing scale (4px base) ---- */
+  --zp-space-1: 4px;
+  --zp-space-2: 8px;
+  --zp-space-3: 12px;
+  --zp-space-4: 16px;
+  --zp-space-5: 20px;
+  --zp-space-6: 24px;
+  --zp-space-8: 32px;
+  --zp-space-10: 40px;
+  --zp-space-12: 48px;
+  --zp-space-16: 64px;
+
+  /* ---- Radii ---- */
+  --zp-radius-sm: 8px;
+  --zp-radius-md: 14px;
+  --zp-radius-lg: 20px;
+  --zp-radius-pill: 999px;
+
+  /* ---- Shadows ---- */
+  --zp-shadow-sm: 0 1px 3px rgba(21, 21, 26, 0.08);
+  --zp-shadow-md: 0 6px 20px rgba(21, 21, 26, 0.10);
+  --zp-shadow-lg: 0 16px 40px rgba(21, 21, 26, 0.14);
+
+  /* ---- Motion ---- */
+  --zp-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --zp-duration-fast: 150ms;
+  --zp-duration-base: 250ms;
+  --zp-duration-slow: 450ms;
+
+  /* ---- Layout ---- */
+  --zp-max-width: 480px; /* mobile-first app shell, centered on desktop */
+  --zp-header-height: 56px;
+  --zp-bottom-nav-height: 64px;
+  --zp-safe-bottom: env(safe-area-inset-bottom, 0px);
+}
