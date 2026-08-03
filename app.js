@@ -45,16 +45,18 @@ import {
 
 /* =========================================================
    PART 1 — FIREBASE CONFIG
-   Paste your Firebase project config below. Get it from:
-   Firebase Console → Project Settings → General → Your apps → SDK setup
+   Live config for the "zesto-print" Firebase project (Auth, Firestore,
+   Storage). Swap these values if you ever point this app at a
+   different Firebase project.
 ========================================================= */
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyDhaFpavvYMPfxCv2Cf9Bkq5lqCTTRX-rA",
+  authDomain: "zesto-print.firebaseapp.com",
+  projectId: "zesto-print",
+  storageBucket: "zesto-print.firebasestorage.app",
+  messagingSenderId: "985561675501",
+  appId: "1:985561675501:web:d658e269ab2cb721963ee4",
+  measurementId: "G-EDCVLGTYSF"
 };
 /* =========================================================
    END FIREBASE CONFIG
