@@ -1,5 +1,5 @@
 /* ============================================================
-   ZESTO PRINT — app.js
+   printex — app.js
    Single-file JavaScript for the whole SPA. Sections are added
    part by part; each part's code is clearly commented below.
 ============================================================= */
